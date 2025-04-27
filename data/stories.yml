@@ -1,0 +1,22 @@
+version: "3.1"
+
+stories:
+- story: cumprimento simples
+  steps:
+  - intent: cumprimentar
+  - action: utter_cumprimentar
+
+- story: busca de jogador
+  steps:
+  - intent: buscar_jogador
+  - action: action_buscar_jogador
+
+- story: listar top jogadores
+  steps:
+  - intent: top_jogadores
+  - action: action_top_jogadores
+
+- story: despedida
+  steps:
+  - intent: despedir
+  - action: utter_despedir

@@ -1,0 +1,23 @@
+version: "3.1"
+
+intents:
+  - cumprimentar
+  - buscar_jogador
+  - top_jogadores
+  - despedir
+
+entities:
+  - player
+
+responses:
+  utter_cumprimentar:
+    - text: "Olá! Sou um bot especialista em VALORANT. Como posso ajudar?"
+    - text: "Oi! Posso te ajudar com informações sobre jogadores profissionais de VALORANT!"
+
+  utter_despedir:
+    - text: "Até mais! Foi um prazer ajudar!"
+    - text: "Tchau! Volte sempre que precisar de informações sobre VALORANT!"
+
+actions:
+  - action_buscar_jogador
+  - action_top_jogadores
