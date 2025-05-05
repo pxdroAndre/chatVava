@@ -18,8 +18,8 @@ class ActionBuscarJogador(Action):
         player = next(tracker.get_latest_entity_values("player"), None)
         
         if player:
-            # Buscar jogador no DataFrame
-            jogador = df[df['Player'].str.lower() == player.lower()]
+            # Buscar jogador no DataFrame (ignorando case e espaços)
+            jogador = df[df['Player'].str.lower().str.strip() == player.lower().strip()]
             
             if not jogador.empty:
                 jogador = jogador.iloc[0]
@@ -44,12 +44,16 @@ class ActionTopJogadores(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        df = pd.read_csv('Players.csv')
-        top5 = df.head(5)
-        
-        resposta = "Top 5 jogadores por ganhos:\n\n"
-        for _, jogador in top5.iterrows():
-            resposta += f"{jogador['Player']}: {jogador['Earnings']}\n"
-        
-        dispatcher.utter_message(text=resposta)
-        return []
+        try:
+            df = pd.read_csv('Players.csv')
+            top5 = df.head(5)
+            
+            resposta = "Top 5 jogadores por ganhos:\n\n"
+            for _, jogador in top5.iterrows():
+                resposta += f"{jogador['Player']}: {jogador['Earnings']}\n"
+            
+            dispatcher.utter_message(text=resposta)
+            return []
+        except Exception as e:
+            dispatcher.utter_message(text=f"Desculpe, ocorreu um erro ao buscar os top jogadores: {str(e)}")
+            return []
